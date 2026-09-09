@@ -41,6 +41,41 @@ for col, width in col_widths.items():
 ws.freeze_panes = "A2"
 
 # ---------------------------------------------------------------------------
+# Budget sheet
+# ---------------------------------------------------------------------------
+budget_ws = wb.create_sheet("Budget")
+
+budget_headers = ["Category", "Monthly Budget", "Notes"]
+for col_idx, header in enumerate(budget_headers, start=1):
+    cell = budget_ws.cell(row=1, column=col_idx, value=header)
+    cell.font = header_font
+    cell.fill = header_fill
+    cell.alignment = Alignment(horizontal="center")
+
+# Starter budget matching the example categories above. Edit freely - add,
+# remove, or rename rows to match the categories you actually use.
+starter_budget = [
+    ("Groceries", 300, ""),
+    ("Eating Out", 120, ""),
+    ("Transport", 100, ""),
+    ("Subscriptions", 40, ""),
+    ("Utilities", 150, ""),
+    ("Rent", 950, ""),
+    ("Shopping", 100, ""),
+    ("Entertainment", 60, "Example row - edit or delete freely"),
+]
+for row_idx, (cat, amount, note) in enumerate(starter_budget, start=2):
+    budget_ws.cell(row=row_idx, column=1, value=cat)
+    c = budget_ws.cell(row=row_idx, column=2, value=amount)
+    c.number_format = "#,##0.00"
+    budget_ws.cell(row=row_idx, column=3, value=note)
+
+budget_ws.column_dimensions["A"].width = 18
+budget_ws.column_dimensions["B"].width = 16
+budget_ws.column_dimensions["C"].width = 40
+budget_ws.freeze_panes = "A2"
+
+# ---------------------------------------------------------------------------
 # Read Me sheet (legend)
 # ---------------------------------------------------------------------------
 notes = wb.create_sheet("Read Me")
@@ -60,7 +95,17 @@ lines = [
     ("   - Account: which bank account or card the transaction is on.", False),
     ("4. Save the file, then click 'Reload data' in the dashboard sidebar (or just refresh the browser tab).", False),
     ("", False),
-    ("Do not rename the 'Transactions' sheet or its column headers - the dashboard reads them by name.", False),
+    ("Setting a budget", True),
+    ("", False),
+    ("5. On the 'Budget' tab, enter one row per category with the amount you want to spend per month.", False),
+    ("   A few starter rows are included - edit the amounts, and add or delete rows to match your own categories.", False),
+    ("6. Use the 'Notes' column for anything worth remembering, e.g. 'going up after rent renewal in March'.", False),
+    ("7. Open the dashboard's 'Budget vs Actual' page (in the page menu) to see how you're tracking each month,", False),
+    ("   which categories are over, and exactly which transactions are driving it.", False),
+    ("8. You can also edit the budget from inside that page and click 'Save budget to Excel' - it writes back", False),
+    ("   to this same file, so both routes always stay in sync.", False),
+    ("", False),
+    ("Do not rename the 'Transactions' or 'Budget' sheets or their column headers - the dashboard reads them by name.", False),
 ]
 
 for row_idx, (text, bold) in enumerate(lines, start=1):

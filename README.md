@@ -6,12 +6,23 @@ your computer.
 
 ## What you get
 
+Two pages (use the page menu at the top of the sidebar):
+
+**Overview**
 - Monthly spend trend, category breakdown, top merchants, and spend-by-account charts
 - Headline metrics: total spend, income/refunds, net, average monthly spend
 - Filters by date range, category, and account
 - A form in the sidebar to add a transaction without opening Excel (optional — you
   can also just edit the spreadsheet directly)
 - A filterable transactions table with CSV export
+
+**Budget vs Actual**
+- Set a monthly budget per category (on the Budget tab in Excel, or in-app)
+- See at a glance which categories are over budget this month, and by how much
+- A budget-vs-actual chart per category, colour-coded over/under
+- Drill into any category to see exactly which transactions drove an overspend,
+  plus how that category has trended over past months against its budget
+- Edit the budget directly in the app and save it back to the same Excel file
 
 ## 1. Requirements
 
@@ -40,8 +51,12 @@ This opens the dashboard in your browser (usually `http://localhost:8501`).
 
 ## 4. Add your data
 
-Open `data/transactions.xlsx`. It has one sheet called **Transactions** with these
-columns:
+Open `data/transactions.xlsx`. It has three sheets: **Transactions**, **Budget**,
+and **Read Me** (which repeats these instructions inside the file itself).
+
+### Transactions
+
+Columns:
 
 | Date | Description | Category | Amount | Account |
 |------|-------------|----------|--------|---------|
@@ -56,6 +71,27 @@ columns:
 Keep adding rows over time (copy in rows from your bank's exported statement, or
 type them in manually), save the file, then click **Reload data** in the sidebar
 (or just refresh the page) to see the dashboard update.
+
+### Budget
+
+Columns: **Category**, **Monthly Budget**, **Notes** (optional — jot down anything
+worth remembering, e.g. "going up after rent renewal in March"). A few starter
+rows are included with rough example amounts — edit them, and add or delete rows
+so the categories match the ones you actually use in Transactions.
+
+You can also add/edit budget rows directly from the **Budget vs Actual** page in
+the app and click "Save budget to Excel" — it writes to the same file, so editing
+in Excel or in the app both stay in sync.
+
+### How Budget vs Actual works
+
+- Pick a month in the sidebar. The page totals your actual spend per category
+  for that month and compares it to what you budgeted.
+- Categories are colour-coded: red = over budget, green = on track, grey = no
+  budget set for that category yet.
+- Use the "Drill into a category" section to see exactly which transactions
+  pushed you over, and how that category has trended over previous months
+  against its budget line.
 
 ## Updating from a bank statement export
 
